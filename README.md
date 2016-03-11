@@ -11,7 +11,7 @@ npm install --save redux-simple-websocket
 
 ## Actions
 
-The middleware listens for dispatched actions. These are the actions this middleware will dispatch.
+These are the actions you can dispatch for the middleware:
 
 ```javascript
 import {openSocket, closeSocket, sendSocketMessage} from 'redux-simple-websocket'
@@ -63,17 +63,16 @@ The middleware will dispatch whatever the eventhandler returns from the given on
 
 ```javascript
 const eventHandler = (event) => {
-	switch(event.name) {
+	switch(event.type) {
 		case 'message':
-			return myOnMessageAction
-		case 'close':
-			return myOnCloseAction
-		case 'error':
-			return myOnErrorAction
-		case 'open':
-			return myOnOpenAction
+			return myOnMessageAction(JSON.parse(event.data))
+		case 'close':...
+		case 'error':...
+		case 'open':...
+		case 'closing_error':...
+		case 'sending_error':...
 		default:
-			return myUnhandledAction
+			return myUnhandledAction(event.type)
 	}
 }
 ```
@@ -81,10 +80,10 @@ const eventHandler = (event) => {
 An example of an action: 
 
 ```javascript
-const myOnMessageAction = (event) => {
+const myOnMessageAction = (data) => {
 	return {
 		type: 'NEW_MESSAGE_RECEIVED_FROM_WEBSOCKET',
-		event.data
+		data
 	}
 }
 ```
