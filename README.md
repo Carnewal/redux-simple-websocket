@@ -66,11 +66,11 @@ const eventHandler = (event) => {
 	switch(event.type) {
 		case 'message':
 			return myOnMessageAction(JSON.parse(event.data))
-		case 'close':...
-		case 'error':...
-		case 'open':...
-		case 'closing_error':...
-		case 'sending_error':...
+		case 'close':
+		case 'error':
+		case 'open':
+		case 'closing_error':
+		case 'sending_error':
 		default:
 			return myUnhandledAction(event.type)
 	}
